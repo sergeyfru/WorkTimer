@@ -56,22 +56,6 @@ export default function App() {
     } catch (error) {
       console.error("Error saving logs", error);
     }
-
-    // setLog((prevLog) => {
-    //   const index = prevLog.findIndex((entry) => entry.date === today);
-    //   if (index !== -1) {
-    //     const updated = [...prevLog];
-    //     updated[index][type.toLowerCase()] = time;
-    //     return updated;
-    //   } else {
-    //     const newEntry = {
-    //       date: today,
-    //       entrance: type === "Entrance" ? time : "",
-    //       exit: type === "Exit" ? time : "",
-    //     };
-    //     return [...prevLog, newEntry];
-    //   }
-    // });
   };
 
   const handleEntrance = () => handleAction("Entrance");
@@ -97,38 +81,18 @@ export default function App() {
     const initLogs = async () => {
       const stored = await AsyncStorage.getItem("workLogs");
       if (stored === null) {
-        // Первый запуск — сохраняем начальный список
+        
         await AsyncStorage.setItem("workLogs", JSON.stringify(defaultLogs));
         setLog(defaultLogs);
       } else {
-        // Уже есть сохранённые данные
+        
         setLog(JSON.parse(stored));
       }
     };
 
     initLogs();
   }, []);
-  // useEffect(() => {
-  //   AsyncStorage.setItem("logData", JSON.stringify(log));
-  // }, [log]);
-
-  // useEffect(() => {
-  //   const loadLog = async () => {
-  //     const storedLog = await AsyncStorage.getItem("logData");
-  //     const today = getDateKey();
-  //     if (storedLog) {
-  //       const parsedLog = JSON.parse(storedLog);
-  //       const hasToday = parsedLog.some((entry) => entry.date === today);
-  //       if (!hasToday) {
-  //         parsedLog.push({ date: today, entrance: "", exit: "" });
-  //       }
-  //       setLog(parsedLog);
-  //     } else {
-  //       setLog([{ date: today, entrance: "", exit: "" }]);
-  //     }
-  //   };
-  //   loadLog();
-  // }, []);
+  
 
   return (
     <View style={styles.container}>
